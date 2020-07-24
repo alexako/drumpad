@@ -11,8 +11,19 @@ class App extends Component {
 
   keys = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C'];
 
-  clickHander(event) {
-    console.log('clicked!', event);
+  componentDidMount() {
+    document.addEventListener("keydown", this.keyDownHandler, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.keyDownHandler, false);
+  }
+
+  clickHander(key) {
+    console.log('clicked!', key);
+  }
+
+  keyDownHandler(event) {
+    console.log('pressed!:', event.key);
   }
 
   render() { 
@@ -20,8 +31,8 @@ class App extends Component {
       <div id="drum-machine">
         <div id="display"></div>
         <div className="drum-pad-container">
-          {this.keys.map((k, i) => (
-            <Drumpad drumKey={k} onClick={() => this.clickHander(k)} key={i} />
+          {this.keys.map((key, i) => (
+            <Drumpad drumKey={key} onClick={() => this.clickHander(key)} key={i} />
           ))}
         </div>
       </div>
