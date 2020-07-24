@@ -2,30 +2,36 @@ import React, { Component } from 'react';
 import './App.scss';
 import Drumpad from './Drumpad';
 import { Sounds } from './shared/globals';
+import Display from './Display';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-     }
+      displayVal: 'Press a button'
+    }
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.flashDrumpad, false);
+    document.addEventListener("keydown", (event) => this.flashDrumpad(this, event), false);
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.flashDrumpad, false);
   }
 
   onMouseDownHandler(key) {
-    this.flashDrumpad({key: key})
+    this.flashDrumpad(this, {key: key})
   }
 
-  flashDrumpad(event) {
+  flashDrumpad(self, event) {
     const drumpadId = event.key
     if (Object.keys(Sounds).indexOf(drumpadId) === -1) {
       return
     }
+
+    self.setState({
+      displayVal: Sounds[drumpadId].desc
+    })
 
     const drumpadEl = document.getElementById(drumpadId)
     drumpadEl.classList.add('drum-pad--active')
@@ -37,7 +43,7 @@ class App extends Component {
   render() { 
     return ( 
       <div id="drum-machine">
-        <div id="display"></div>
+        <Display soundDesc={this.state.displayVal} />
         <div className="drum-pad-container">
           {Object.keys(Sounds).map((key, i) => (
             <Drumpad
