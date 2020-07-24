@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   flashDrumpad(self, event) {
-    const drumpadId = event.key
+    const drumpadId = event.key.toLowerCase()
     if (Object.keys(Sounds).indexOf(drumpadId) === -1) {
       return
     }
@@ -35,8 +35,7 @@ class App extends Component {
 
     const drumpadEl = document.getElementById(drumpadId)
     drumpadEl.classList.add('drum-pad--active')
-    const sound = new Audio(window.location.href + Sounds[drumpadId].path)
-    console.log('sound:', sound);
+    const sound = document.getElementById(drumpadId.toUpperCase())
     sound.play();
     setTimeout(() => {
       drumpadEl.classList.remove('drum-pad--active')
@@ -50,6 +49,7 @@ class App extends Component {
         <div className="drum-pad-container">
           {Object.keys(Sounds).map((key, i) => (
             <Drumpad
+              sound={Sounds[key]}
               drumKey={key}
               onMouseDown={() => this.onMouseDownHandler(key)}
               key={i} />
