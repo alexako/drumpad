@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Drumpad = ({ drumKey, onClick }) => {
+const Drumpad = ({ drumKey, onMouseDown}) => {
   return (
     <div id={drumKey}
       className="drum-pad"
-      onClick={onClick}>
-      <div className="drump-pad__label">
+      onMouseDown={onMouseDown}>
+      <div className="drum-pad__label">
         {drumKey}
       </div>
     </div>

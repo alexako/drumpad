@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Drumpad from './Drumpad';
-import { Keys } from './shared/globals';
+import { Sounds } from './shared/globals';
 
 class App extends Component {
   constructor(props) {
@@ -17,13 +17,13 @@ class App extends Component {
     document.removeEventListener("keydown", this.flashDrumpad, false);
   }
 
-  clickHander(key) {
+  onMouseDownHandler(key) {
     this.flashDrumpad({key: key})
   }
 
   flashDrumpad(event) {
     const drumpadId = event.key
-    if (Keys.indexOf(drumpadId) === -1) {
+    if (Object.keys(Sounds).indexOf(drumpadId) === -1) {
       return
     }
 
@@ -39,10 +39,10 @@ class App extends Component {
       <div id="drum-machine">
         <div id="display"></div>
         <div className="drum-pad-container">
-          {Keys.map((key, i) => (
+          {Object.keys(Sounds).map((key, i) => (
             <Drumpad
               drumKey={key}
-              onClick={() => this.clickHander(key)}
+              onMouseDown={() => this.onMouseDownHandler(key)}
               key={i} />
           ))}
         </div>

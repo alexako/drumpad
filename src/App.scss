@@ -20,13 +20,32 @@
 }
 
 .drum-pad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   background-color: purple;
+  box-shadow: 0 4px 0px #5b1c5a;
+  transform: translate(0px, 0px);
   border-radius: 0.5em;
-  @include transition(0.2s);
+  @include transition(0.1s);
   transition-timing-function: cubic-bezier(0.06, 0.61, 0.81, 1.05);
+
+  &__label {
+    font-size: 3em;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #5a005a;
+    @include transition(0.1s);
+  }
+
+  &--active &__label {
+    color: #bb7900;
+  }
 
   &--active {
     background-color: orange;
+    box-shadow: 0 1px 0px #5b1c5a;
+    transform: translate(0px, 3px);
   }
 }
