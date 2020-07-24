@@ -1,29 +1,38 @@
 export const Sounds = {
   'q': {
-    desc: 'q'
+    path: 'sounds/clap-fat.wav',
+    desc: 'Clap Fat'
   },
   'w': {
-    desc: 'w'
+    path: 'sounds/cowbell-808.wav',
+    desc: 'Cowbell 808'
   },
   'e': {
-    desc: 'e'
+    path: 'sounds/hihat-dist02.wav',
+    desc: 'Hi-Hat Distorted'
   },
   'a': {
-    desc: 'a'
+    path: 'sounds/kick-808.wav',
+    desc: 'Kick 808'
   },
   's': {
-    desc: 's'
+    path: 'sounds/kick-big.wav',
+    desc: 'Kick Big'
   },
   'd': {
-    desc: 'd'
+    path: 'sounds/kick-oldschool.wav',
+    desc: 'Kick Oldschool'
   },
   'z': {
-    desc: 'z'
+    path: 'sounds/ride-acoustic02.wav',
+    desc: 'Ride Acoustic'
   },
   'x': {
-    desc: 'x'
+    path: 'sounds/snare-808.wav',
+    desc: 'Snare 808'
   },
   'c': {
-    desc: 'c'
+    path: 'sounds/tom-808.wav',
+    desc: 'Tom 808'
   },
 }

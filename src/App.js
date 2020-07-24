@@ -35,6 +35,9 @@ class App extends Component {
 
     const drumpadEl = document.getElementById(drumpadId)
     drumpadEl.classList.add('drum-pad--active')
+    const sound = new Audio(window.location.href + Sounds[drumpadId].path)
+    console.log('sound:', sound);
+    sound.play();
     setTimeout(() => {
       drumpadEl.classList.remove('drum-pad--active')
     }, 200)
