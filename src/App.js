@@ -1,26 +1,63 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import './App.scss';
+import Drumpad from './Drumpad';
+import { Sounds } from './shared/globals';
+import Display from './Display';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      displayVal: 'Press a button'
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", (event) => this.flashDrumpad(this, event), false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.flashDrumpad, false);
+  }
+
+  onMouseDownHandler(key) {
+    this.flashDrumpad(this, {key: key})
+  }
+
+  flashDrumpad(self, event) {
+    const drumpadId = event.key
+    if (Object.keys(Sounds).indexOf(drumpadId) === -1) {
+      return
+    }
+
+    self.setState({
+      displayVal: Sounds[drumpadId].desc
+    })
+
+    const drumpadEl = document.getElementById(drumpadId)
+    drumpadEl.classList.add('drum-pad--active')
+    const sound = new Audio(window.location.href + Sounds[drumpadId].path)
+    console.log('sound:', sound);
+    sound.play();
+    setTimeout(() => {
+      drumpadEl.classList.remove('drum-pad--active')
+    }, 200)
+  }
+
+  render() { 
+    return ( 
+      <div id="drum-machine">
+        <Display soundDesc={this.state.displayVal} />
+        <div className="drum-pad-container">
+          {Object.keys(Sounds).map((key, i) => (
+            <Drumpad
+              drumKey={key}
+              onMouseDown={() => this.onMouseDownHandler(key)}
+              key={i} />
+          ))}
+        </div>
+      </div>
+     );
+  }
 }
-
+ 
 export default App;
