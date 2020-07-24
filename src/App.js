@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Drumpad from './Drumpad';
+import { Keys } from './shared/globals';
 
 class App extends Component {
   constructor(props) {
@@ -9,21 +10,28 @@ class App extends Component {
      }
   }
 
-  keys = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C'];
-
   componentDidMount() {
-    document.addEventListener("keydown", this.keyDownHandler, false);
+    document.addEventListener("keydown", this.flashDrumpad, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.keyDownHandler, false);
+    document.removeEventListener("keydown", this.flashDrumpad, false);
   }
 
   clickHander(key) {
-    console.log('clicked!', key);
+    this.flashDrumpad({key: key})
   }
 
-  keyDownHandler(event) {
-    console.log('pressed!:', event.key);
+  flashDrumpad(event) {
+    const drumpadId = event.key
+    if (Keys.indexOf(drumpadId) === -1) {
+      return
+    }
+
+    const drumpadEl = document.getElementById(drumpadId)
+    drumpadEl.classList.add('drum-pad--active')
+    setTimeout(() => {
+      drumpadEl.classList.remove('drum-pad--active')
+    }, 200)
   }
 
   render() { 
@@ -31,8 +39,11 @@ class App extends Component {
       <div id="drum-machine">
         <div id="display"></div>
         <div className="drum-pad-container">
-          {this.keys.map((key, i) => (
-            <Drumpad drumKey={key} onClick={() => this.clickHander(key)} key={i} />
+          {Keys.map((key, i) => (
+            <Drumpad
+              drumKey={key}
+              onClick={() => this.clickHander(key)}
+              key={i} />
           ))}
         </div>
       </div>
