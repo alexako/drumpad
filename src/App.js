@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.scss';
+import Drumpad from './Drumpad';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+     }
+  }
+
+  keys = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C'];
+
+  clickHander(event) {
+    console.log('clicked!', event);
+  }
+
+  render() { 
+    return ( 
+      <div id="drum-machine">
+        <div id="display"></div>
+        <div className="drum-pad-container">
+          {this.keys.map((k, i) => (
+            <Drumpad drumKey={k} onClick={() => this.clickHander(k)} key={i} />
+          ))}
+        </div>
+      </div>
+     );
+  }
 }
-
+ 
 export default App;
